@@ -1,6 +1,9 @@
-export default function handler(req, res) {
+import { getCity } from "@/lib/controller";
+
+export default async function handler(req, res) {
+
     // get all
-    let results = ["TEST"];
+    let results = await getCity();
 
     // reponse result
     if (!results) res
