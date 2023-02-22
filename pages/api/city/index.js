@@ -8,5 +8,5 @@ export default function handler(req, res) {
         .send("Not found");
     else res
         .status(200)
-        .send(results);
+        .json(results);
 }
