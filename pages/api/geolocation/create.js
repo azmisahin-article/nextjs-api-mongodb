@@ -1,6 +1,12 @@
 import { createGeolocation } from "@/lib/controller";
 import { runMiddleware } from "../cors";
 
+export async function getIpAddress(req) {
+    const forwarded = req.headers["x-forwarded-for"]
+    const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
+    return ip
+}
+
 /**
  * Post
  * geolocation
@@ -8,7 +14,7 @@ import { runMiddleware } from "../cors";
  * @param {*} res 
  */
 export default async function handler(req, res) {
- 
+
     // 
     await runMiddleware(req, res)
 
@@ -19,6 +25,9 @@ export default async function handler(req, res) {
     if (!body) res
         .status(400)
         .send("Bad request")
+
+    // add ip
+    body.ip = getIpAddress(req)
 
     // logic
     let results = await createGeolocation(body);
