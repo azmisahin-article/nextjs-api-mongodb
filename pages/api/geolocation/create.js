@@ -1,10 +1,9 @@
 import { createGeolocation } from "@/lib/controller";
 import { runMiddleware } from "../cors";
+import requestIp from "request-ip"
 
 export async function getIpAddress(req) {
-    const forwarded = req.headers["x-forwarded-for"]
-    const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
-    return ip
+    return await requestIp.getClientIp(req);
 }
 
 /**
