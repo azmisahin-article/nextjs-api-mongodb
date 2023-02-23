@@ -1,4 +1,5 @@
 import { getRVP } from "@/lib/controller";
+import { runMiddleware } from "./cors";
 
 /**
  * Get
@@ -7,6 +8,9 @@ import { getRVP } from "@/lib/controller";
  * @param {*} res 
  */
 export default async function handler(req, res) {
+
+    // 
+    await runMiddleware(req, res)
 
     // logic
     let results = await getRVP();
