@@ -1,5 +1,11 @@
 import { createParticipant } from "@/lib/controller";
 
+/**
+ * Post
+ * Participant
+ * @param {*} req 
+ * @param {*} res 
+ */
 export default async function handler(req, res) {
 
     // Get data submitted in request's body.

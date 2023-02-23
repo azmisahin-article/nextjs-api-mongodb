@@ -1,8 +1,14 @@
 import { getParticipant } from "@/lib/controller";
 
+/**
+ * Get
+ * Participant
+ * @param {*} req 
+ * @param {*} res 
+ */
 export default async function handler(req, res) {
 
-    // get all
+    // logic
     let results = await getParticipant();
 
     // reponse result
@@ -11,5 +17,5 @@ export default async function handler(req, res) {
         .send("Not found");
     else res
         .status(200)
-        .json(results);
+        .send(results);
 }

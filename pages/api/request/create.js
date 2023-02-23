@@ -1,5 +1,11 @@
-import { createRequest, getRequest } from "@/lib/controller";
+import { createRequest } from "@/lib/controller";
 
+/**
+ * Post
+ * Request
+ * @param {*} req 
+ * @param {*} res 
+ */
 export default async function handler(req, res) {
 
     // Get data submitted in request's body.

@@ -1,8 +1,14 @@
 import { getRequest } from "@/lib/controller";
 
+/**
+ * Get
+ * Request
+ * @param {*} req 
+ * @param {*} res 
+ */
 export default async function handler(req, res) {
 
-    // get all
+    // logic
     let results = await getRequest();
 
     // reponse result

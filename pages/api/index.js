@@ -1,6 +1,7 @@
 import { getRVP } from "@/lib/controller";
 
 /**
+ * Get
  * Overview of requests and volunteer participation [RVP]
  * @param {*} req 
  * @param {*} res 
