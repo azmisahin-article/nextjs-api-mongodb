@@ -26,7 +26,7 @@ export default async function handler(req, res) {
         .send("Bad request")
 
     // add ip
-    body.ip = getIpAddress(req)
+    body.ip = await getIpAddress(req)
 
     // logic
     let results = await createGeolocation(body);
