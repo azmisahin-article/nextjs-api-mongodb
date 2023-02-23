@@ -1,4 +1,5 @@
 import { getVolunteerById } from "@/lib/controller";
+import { runMiddleware } from "../cors";
 
 /**
  * Get
@@ -7,6 +8,9 @@ import { getVolunteerById } from "@/lib/controller";
  * @param {*} res 
  */
 export default async function handler(req, res) {
+   
+    // 
+    await runMiddleware(req, res)
 
     // dynamic route
     const { id } = req.query

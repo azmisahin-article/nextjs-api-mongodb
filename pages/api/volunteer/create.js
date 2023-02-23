@@ -1,4 +1,5 @@
 import { createVolunteer } from "@/lib/controller";
+import { runMiddleware } from "../cors";
 
 /**
  * Post
@@ -7,6 +8,9 @@ import { createVolunteer } from "@/lib/controller";
  * @param {*} res 
  */
 export default async function handler(req, res) {
+   
+    // 
+    await runMiddleware(req, res)
 
     // Get data submitted in request's body.
     const body = req.body
