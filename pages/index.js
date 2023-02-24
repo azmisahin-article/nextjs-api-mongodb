@@ -1,10 +1,30 @@
 import Head from 'next/head'
 
-export default function Home() {
+/**
+ * server side
+ * @param {*} context 
+ * @returns 
+ */
+export async function getServerSideProps(context) {
+  // global define
+  const api = process.env.ARCTICLE_API_URL;
+  const cities = await (await fetch(`${api}/city`)).json()
+  const needs = await (await fetch(`${api}/need`)).json()
 
-  var cities = []
-  var needs = []
+  //
+  return {
+    props: { cities, needs },
+  }
+}
 
+/**
+ * client side
+ * @param {*} properties 
+ * @returns 
+ */
+export default function Home({ cities, needs }) {
+
+  //
   return (
     <>
       <Head>
