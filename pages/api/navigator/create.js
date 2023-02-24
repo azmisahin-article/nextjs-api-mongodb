@@ -1,6 +1,5 @@
 import { createNavigator, createVisitor, getNavigatorByIp } from "@/lib/controller";
 import { runMiddleware } from "../cors";
-import requestIp from "request-ip"
 
 export async function getIpAddress(req) {
     return await requestIp.getClientIp(req);
@@ -28,23 +27,30 @@ export default async function handler(req, res) {
             .send("Bad request")
 
         // add ip
-        body.ip = await getIpAddress(req)
+        body.ip = req.clientIp
 
         // Main Logic
+        let navigator = {};
+        let visitor = {}
+
         // check navigator [ like user ]
         let isNavigator = await getNavigatorByIp(body.ip)
 
-        let results = null;
-
         // no record
-        if (!isNavigator) {
+        if (!!isNavigator) {
             // logic
-            results = await createNavigator(body);
+            navigator = await createNavigator(body);
+        } else {
+            // set
+            navigator = isNavigator
         }
 
         // second logic
         // every time record visitor [ history ]
-        results.visitor = await createVisitor(body)
+        visitor = await createVisitor(body)
+
+        // finaly logic        
+        let results = navigator
 
         // reponse result
         if (!results) res
