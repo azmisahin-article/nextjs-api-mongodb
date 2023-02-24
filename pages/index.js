@@ -1,5 +1,7 @@
 import { get } from '@/lib/helpers'
 import Head from 'next/head'
+import Link from 'next/link'
+import Image from 'next/image'
 
 /**
  * server side
@@ -33,6 +35,7 @@ export default function Home({ cities, needs }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        {/* request form */}
         <div className='container'>
 
           <form className='was-validated row gy-2 gx-3'>
@@ -62,6 +65,37 @@ export default function Home({ cities, needs }) {
             </div>
 
           </form>
+        </div>
+
+        {/* table */}
+        <div className='container'>
+          <table className='table'>
+            <thead>
+              <tr>
+                <th scope='col'>city</th>
+                <th scope='col'>volunteer</th>
+                <th scope='col'>need</th>
+                <th scope='col'>calendar</th>
+                <th scope='col'>geolocation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>
+                  <span className='badge bg-secondary' title='total participants'></span>
+                  <Link href="#" data-bs-toggle='modal' data-bs-target='#modal' title='be volunteer'>
+                    <div>
+                      <Image src='/logo.png' width='32' height='32' alt='volunteer'></Image>
+                    </div>
+                  </Link>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
     </>
