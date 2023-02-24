@@ -1,6 +1,5 @@
 import { createNavigator, createVisitor, getNavigatorByIp } from "@/lib/controller";
 import { runMiddleware } from "../cors";
-import requestIp from "request-ip"
 
 export async function getIpAddress(req) {
     return await requestIp.getClientIp(req);
@@ -28,23 +27,27 @@ export default async function handler(req, res) {
             .send("Bad request")
 
         // add ip
-        body.ip = await getIpAddress(req)
+        body.ip = req.clientIp
 
         // Main Logic
-        // check navigator [ like user ]
-        let isNavigator = await getNavigatorByIp(body.ip)
+        let navigator;
+        let visitor;
 
-        let results = null;
+        // check navigator [ like user ]
+        navigator = await getNavigatorByIp(body.ip)
 
         // no record
-        if (!isNavigator) {
+        if (!navigator) {
             // logic
-            results = await createNavigator(body);
+            navigator = await createNavigator(body);
         }
 
         // second logic
         // every time record visitor [ history ]
-        results.visitor = await createVisitor(body)
+        visitor = await createVisitor(body)
+
+        // finaly logic        
+        let results = await navigator
 
         // reponse result
         if (!results) res
@@ -54,11 +57,9 @@ export default async function handler(req, res) {
             .status(200)
             .send(results);
     } catch (error) {
-        console.log(error)
         res
             // 422 Unprocessable Entity
             .status(422)
             .send(error)
     }
-
 }

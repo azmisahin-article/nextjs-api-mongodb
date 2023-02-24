@@ -1,10 +1,5 @@
 import { createGeolocation } from "@/lib/controller";
 import { runMiddleware } from "../cors";
-import requestIp from "request-ip"
-
-export async function getIpAddress(req) {
-    return await requestIp.getClientIp(req);
-}
 
 /**
  * Post
@@ -26,7 +21,7 @@ export default async function handler(req, res) {
         .send("Bad request")
 
     // add ip
-    body.ip = await getIpAddress(req)
+    body.ip = req.clientIp
 
     // logic
     let results = await createGeolocation(body);
