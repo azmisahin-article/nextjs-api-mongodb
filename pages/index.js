@@ -1,3 +1,4 @@
+import { get } from '@/lib/helpers'
 import Head from 'next/head'
 
 /**
@@ -6,11 +7,9 @@ import Head from 'next/head'
  * @returns 
  */
 export async function getServerSideProps(context) {
-  // global define
-  const api = process.env.ARCTICLE_API_URL;
-  const cities = await (await fetch(`${api}/city`)).json()
-  const needs = await (await fetch(`${api}/need`)).json()
-
+  // define
+  const cities = await get("/city")
+  const needs = await get("/need")
   //
   return {
     props: { cities, needs },
