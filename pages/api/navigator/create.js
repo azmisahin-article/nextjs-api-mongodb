@@ -30,19 +30,16 @@ export default async function handler(req, res) {
         body.ip = req.clientIp
 
         // Main Logic
-        let navigator = {};
-        let visitor = {}
+        let navigator;
+        let visitor;
 
         // check navigator [ like user ]
-        let isNavigator = await getNavigatorByIp(body.ip)
+        navigator = await getNavigatorByIp(body.ip)
 
         // no record
-        if (!!isNavigator) {
+        if (!navigator) {
             // logic
             navigator = await createNavigator(body);
-        } else {
-            // set
-            navigator = isNavigator
         }
 
         // second logic
@@ -50,7 +47,7 @@ export default async function handler(req, res) {
         visitor = await createVisitor(body)
 
         // finaly logic        
-        let results = navigator
+        let results = await navigator
 
         // reponse result
         if (!results) res
@@ -60,11 +57,9 @@ export default async function handler(req, res) {
             .status(200)
             .send(results);
     } catch (error) {
-        console.log(error)
         res
             // 422 Unprocessable Entity
             .status(422)
             .send(error)
     }
-
 }
