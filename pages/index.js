@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import styles from '@/styles/Home.module.css'
 
 export default function Home() {
   return (
@@ -10,31 +9,25 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main>
         <div className='container'>
-          <form className="was-validated row gy-2 gx-3">
 
-            <div class="">
-              <label class="visually-hidden" for="geolocation">geolocation</label>
-              <input type="hidden" class="form-control" placeholder="geolocation" required />
-            </div>
+          <form>
 
-            <div className="col-auto">
-              <label class="visually-hidden" for="cityName">city</label>
-              <select class="form-select" placeholder="city name" required>
+            <div className='col-auto'>
+              <select className='form-select' placeholder='city name' required>
                 <option></option>
               </select>
             </div>
 
-            <div class="col-auto">
-              <label class="visually-hidden" for="typeOfNeed">typeOfNeed</label>
-              <select class="form-select" placeholder="type of need" required>
+            <div className='col-auto'>
+              <select className='form-select' placeholder='type of need' required>
                 <option ></option>
               </select>
             </div>
 
-            <div class="col-auto">
-              <button class="btn btn-success" type="submit">Help Request</button>
+            <div className='col-auto'>
+              <button className='btn btn-success' type='submit'>Help Request</button>
             </div>
 
           </form>
