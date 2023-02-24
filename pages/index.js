@@ -1,6 +1,10 @@
 import Head from 'next/head'
 
 export default function Home() {
+
+  var cities = []
+  var needs = []
+
   return (
     <>
       <Head>
@@ -12,17 +16,25 @@ export default function Home() {
       <main>
         <div className='container'>
 
-          <form>
+          <form className='was-validated row gy-2 gx-3'>
 
             <div className='col-auto'>
               <select className='form-select' placeholder='city name' required>
-                <option></option>
+                {
+                  cities.map((city) => {
+                    return <option key={city._id}>{city.cityName}</option>
+                  })
+                }
               </select>
             </div>
 
             <div className='col-auto'>
               <select className='form-select' placeholder='type of need' required>
-                <option ></option>
+                {
+                  needs.map((need) => {
+                    return <option key={need._id}>{need.kind}</option>
+                  })
+                }
               </select>
             </div>
 
