@@ -14,41 +14,51 @@ export async function getIpAddress(req) {
  */
 export default async function handler(req, res) {
 
-    // 
-    await runMiddleware(req, res)
+    try {
 
-    // Get data submitted in request's body.
-    const body = req.body
+        // 
+        await runMiddleware(req, res)
 
-    // Guard clause checks
-    if (!body) res
-        .status(400)
-        .send("Bad request")
+        // Get data submitted in request's body.
+        let body = req.body
 
-    // add ip
-    body.ip = await getIpAddress(req)
+        // Guard clause checks
+        if (!body) res
+            .status(400)
+            .send("Bad request")
 
-    // Main Logic
-    // check navigator [ like user ]
-    let isNavigator = await getNavigatorByIp(body.ip)
+        // add ip
+        body.ip = await getIpAddress(req)
 
-    let results = null;
+        // Main Logic
+        // check navigator [ like user ]
+        let isNavigator = await getNavigatorByIp(body.ip)
 
-    // no record
-    if (!isNavigator) {
-        // logic
-        results = await createNavigator(body);
+        let results = null;
+
+        // no record
+        if (!isNavigator) {
+            // logic
+            results = await createNavigator(body);
+        }
+
+        // second logic
+        // every time record visitor [ history ]
+        results.visitor = await createVisitor(body)
+
+        // reponse result
+        if (!results) res
+            .status(404)
+            .send("Not found");
+        else res
+            .status(200)
+            .send(results);
+    } catch (error) {
+        console.log(error)
+        res
+            // 422 Unprocessable Entity
+            .status(422)
+            .send(error)
     }
 
-    // second logic
-    // every time record visitor [ history ]
-    results.visitor = await createVisitor(body)
-
-    // reponse result
-    if (!results) res
-        .status(404)
-        .send("Not found");
-    else res
-        .status(200)
-        .send(results);
 }
