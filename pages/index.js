@@ -12,9 +12,11 @@ export async function getServerSideProps(context) {
   // define
   const cities = await get("/city")
   const needs = await get("/need")
+  const rvps = await get("/")
+
   //
   return {
-    props: { cities, needs },
+    props: { cities, needs, rvps },
   }
 }
 
@@ -23,7 +25,7 @@ export async function getServerSideProps(context) {
  * @param {*} properties 
  * @returns 
  */
-export default function Home({ cities, needs }) {
+export default function Home({ cities, needs, rvps }) {
 
   //
   return (
@@ -80,20 +82,24 @@ export default function Home({ cities, needs }) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td>
-                  <span className='badge bg-secondary' title='total participants'></span>
-                  <Link href="#" data-bs-toggle='modal' data-bs-target='#modal' title='be volunteer'>
-                    <div>
-                      <Image src='/logo.png' width='32' height='32' alt='volunteer'></Image>
-                    </div>
-                  </Link>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+              {
+                rvps.map((rvp) => {
+                  return <tr key={rvp._id}>
+                    <td>{rvp.cityName}</td>
+                    <td>
+                      <span className='badge bg-secondary' title='total participants'></span>
+                      <Link href="#" data-bs-toggle='modal' data-bs-target='#modal' title='be volunteer'>
+                        <div>
+                          <Image src='/logo.png' width='32' height='32' alt='volunteer'></Image>
+                        </div>
+                      </Link>
+                    </td>
+                    <td>{rvp.typeOfNeed}</td>
+                    <td>{rvp.calendar}</td>
+                    <td>{rvp.geolocation.latitude}</td>
+                  </tr>
+                })
+              }
             </tbody>
           </table>
         </div>
